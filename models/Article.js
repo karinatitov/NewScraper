@@ -8,7 +8,7 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
     img: {
         type: String,
-        required: true
+        // required: true
     },
     // `title` is required and of type String
     title: {
@@ -21,10 +21,7 @@ var ArticleSchema = new Schema({
         required: true
     },
 
-    summary: {
-        type: String,
-        required: true
-    },
+    
 
     saved: { // articles a user has saved
         type: Boolean,
