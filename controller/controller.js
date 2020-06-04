@@ -86,6 +86,63 @@ router.get("/articles", function (req, res) {
     });
 });
 
+router.get("/saveArticle/:id", function (req, res) {
+//  console.log(res);
+
+ Article.findOneAndUpdate({
+   _id: req.params.id },
+   {
+   $set: {
+     saved: true
+   }
+ }
+ ).exec(function (err, doc) {
+  if (err) {
+    console.log(err);
+  } else {
+  
+    res.redirect("/");
+  }
+});
+
+})
+
+router.get("/deleteArticle/:id", function (req, res) {
+  //  console.log(res);
+  
+   Article.deleteOne({
+     _id: req.params.id },
+  
+   ).exec(function (err, doc) {
+    if (err) {
+      console.log(err);
+    } else {
+     
+      res.redirect("/saved");
+    }
+  });
+  })
+
+router.get("/saved", function (req, res) {
+  console.log(res)
+  Article.find({
+    saved: true
+  }).lean()
+    .sort({
+      _id: -1
+    })
+    .exec(function (err, doc) {
+      if (err) {
+        console.log(err);
+      } else {
+        var artcl = {
+          article: doc
+        };
+        res.render("saved", artcl);
+      }
+    });
+});
+
 router.get("/articles-json", function (req, res) {
   Article.find({}, function (err, doc) {
     if (err) {
@@ -122,6 +179,7 @@ router.get("/readArticle/:id", function (req, res) {
       if (err) {
         console.log("Error: " + err);
       } else {
+        console.log(doc)
         hbsObj.article = doc;
         var link = doc.link;
         request(link, function (error, response, html) {
@@ -145,6 +203,8 @@ router.post("/comment/:id", function (req, res) {
   var content = req.body.comment;
   var articleId = req.params.id;
 
+  // array for comments
+
   var commentObj = {
     name: user,
     body: content
@@ -167,7 +227,7 @@ router.post("/comment/:id", function (req, res) {
         }
       }, {
         new: true
-      }).lean().exec(function (err, doc) {
+      }).exec(function (err, doc) {
         if (err) {
           console.log(err);
         } else {
