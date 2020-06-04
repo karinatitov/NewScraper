@@ -70,7 +70,7 @@ router.get("/scrape", function (req, res) {
 });
 router.get("/articles", function (req, res) {
   console.log(res)
-  Article.find()
+  Article.find().lean()
     .sort({
       _id: -1
     })
@@ -116,7 +116,7 @@ router.get("/readArticle/:id", function (req, res) {
 
   Article.findOne({
       _id: articleId
-    })
+    }).lean()
     .populate("comment")
     .exec(function (err, doc) {
       if (err) {
@@ -127,9 +127,9 @@ router.get("/readArticle/:id", function (req, res) {
         request(link, function (error, response, html) {
           var $ = cheerio.load(html);
 
-          $(".l-col__main").each(function (i, element) {
+          $("article").each(function (i, element) {
             hbsObj.body = $(this)
-              .children(".c-entry-content")
+              .children("title")
               .children("p")
               .text();
 
@@ -167,7 +167,7 @@ router.post("/comment/:id", function (req, res) {
         }
       }, {
         new: true
-      }).exec(function (err, doc) {
+      }).lean().exec(function (err, doc) {
         if (err) {
           console.log(err);
         } else {
