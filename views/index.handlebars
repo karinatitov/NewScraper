@@ -1,21 +1,64 @@
-<div>
-    <h1 class="card z-depth-3 center-align">Read the Latest Dev News</h1>
-    <div class="row">
-        <div class="col s3"></div>
-        <h5 class="card z-depth-3 center-align col s6">Click 'Scrape' to get the latest articles</h5>
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Read the Latest Dev News
+            </h1>
+            <h2 class="subtitle">
+                Click 'Scrape' to get the latest articles
+            </h2>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col s2"></div>
+</section>
+
+
+<div class="card">
+    <div class="card-content"></div>
     <div class="col s8 left-align">
         {{#each article}}
-        <div class="card-panel">
-            <h4>{{this.title}}</h4>
-            <a href="/readArticle/{{this._id}}" class="waves-effect waves-light btn" id="btnSignUp">Read Article</a>
-             <a href="/saveArticle/{{this._id}}" class="waves-effect waves-light btn" id="btnSignUp">Save Article</a>
+        <article class="media">
+            <figure class="media-left">
+                <p class="image is-64x64">
+                    <img src="https://bulma.io/images/placeholders/128x128.png">
+                </p>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{this.title}}</strong>
 
-        </div>
+                    </p>
+                </div>
+                <nav class="level is-mobile">
+                    <div class="level-left">
+                        <a href="/readArticle/{{this._id}}" class="level-item">
+                            <span class="icon is-small"><i class="fab fa-readme"></i></span>
+                        </a>
 
+                        <a href="/saveArticle/{{this._id}}" class="level-item">
+                            <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </article>
+        {{!-- <div class="card">
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-128x128">
+                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <h4>{{this.title}}</h4>
+                    <a href="/readArticle/{{this._id}}" class="waves-effect waves-light btn" id="btnSignUp">Read
+                        Article</a>
+                    <a href="/saveArticle/{{this._id}}" class="waves-effect waves-light btn" id="btnSignUp">Save
+                        Article</a>
+
+                </div>
+            </div>
+        </div> --}}
         {{/each}}
     </div>
 </div>
