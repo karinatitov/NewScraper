@@ -212,6 +212,8 @@ router.post("/comment/:id", function (req, res) {
 
   var newComment = new Comment(commentObj);
 
+  console.log(commentObj)
+  
   newComment.save(function (err, doc) {
     if (err) {
       console.log(err);
@@ -237,5 +239,7 @@ router.post("/comment/:id", function (req, res) {
     }
   });
 });
+
+
 
 module.exports = router;
